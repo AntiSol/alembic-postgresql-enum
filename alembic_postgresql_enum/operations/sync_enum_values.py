@@ -7,7 +7,7 @@ import alembic.operations.ops
 from alembic.autogenerate.api import AutogenContext
 from sqlalchemy.exc import DataError
 
-from alembic_postgresql_enum.configuration import get_configuration
+from alembic_postgresql_enum.configuration import get_configuration, SUPPORTED_DIALECTS
 from alembic_postgresql_enum.get_enum_data.types import Unspecified
 from alembic_postgresql_enum.sql_commands.column_default import (
     get_column_default,
@@ -142,8 +142,7 @@ class SyncEnumValuesOp(alembic.operations.ops.MigrateOperation):
             ]
             If there was server default with old_name it will be renamed accordingly
         """
-        config = get_configuration()
-        if operations.migration_context.dialect.name not in config.supported_dialects:
+        if operations.migration_context.dialect.name not in SUPPORTED_DIALECTS:
             log.warning(
                 f"This library only supports postgresql, but you are using {operations.migration_context.dialect.name}, skipping"
             )

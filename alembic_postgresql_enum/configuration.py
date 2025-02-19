@@ -1,6 +1,7 @@
 from dataclasses import dataclass
-from typing import Callable
+from typing import Callable, List
 
+SUPPORTED_DIALECTS: list = ['postgresql','timescaledb']
 
 @dataclass
 class Config:
@@ -8,7 +9,6 @@ class Config:
     include_name: Callable[[str], bool] = lambda _: True
     drop_unused_enums: bool = True
     detect_enum_values_changes: bool = True
-    supported_dialects: list = ['postgresql','timescaledb']
 
 
 _config = Config()

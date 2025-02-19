@@ -15,7 +15,7 @@ from alembic_postgresql_enum.detection_of_changes import (
     drop_unused_enums,
 )
 from alembic_postgresql_enum.get_enum_data import get_defined_enums, get_declared_enums
-from alembic_postgresql_enum.configuration import get_configuration
+from alembic_postgresql_enum.configuration import get_configuration, SUPPORTED_DIALECTS
 
 log = logging.getLogger(f"alembic.{__name__}")
 
@@ -40,7 +40,7 @@ def compare_enums(
     )
     configuration = get_configuration()
 
-    if autogen_context.dialect.name not in configuration.supported_dialects:
+    if autogen_context.dialect.name not in SUPPORTED_DIALECTS:
         log.warning(
             f"This library only supports postgresql, but you are using {autogen_context.dialect.name}, skipping"
         )
